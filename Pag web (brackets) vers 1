@@ -42,6 +42,31 @@
         let codigoSeguimiento = '';
         let productosSeleccionados = [];
 
+        // Esta función se ejecuta cuando el documento está listo
+        document.addEventListener("DOMContentLoaded", function() {
+            cargarBibliotecaQR();
+        });
+
+        function cargarBibliotecaQR() {
+            // Genera el código QR con la información de compra
+            const infoCompra = {
+                total: parseFloat(document.getElementById('total').textContent),
+                productosSeleccionados: productosSeleccionados
+            };
+
+            const infoCompraJSON = JSON.stringify(infoCompra);
+
+            const qrcode = new QRCode(document.getElementById("codigoQR"), {
+                text: infoCompraJSON,
+                width: 128,
+                height: 128
+            });
+
+            // Puedes mostrar el código de seguimiento (opcional)
+            codigoSeguimiento = generarCodigoSeguimiento();
+            console.log("Código de seguimiento: " + codigoSeguimiento);
+        }
+
         function calcularTotal() {
             let total = 0;
             productosSeleccionados = [];
@@ -57,26 +82,6 @@
             }
 
             document.getElementById('total').textContent = total.toFixed(2);
-        }
-
-        function generarCodigoQR() {
-            const infoCompra = {
-                total: parseFloat(document.getElementById('total').textContent),
-                productosSeleccionados: productosSeleccionados
-            };
-
-            const infoCompraJSON = JSON.stringify(infoCompra);
-
-            // Genera el código QR con la información de compra
-            const qrcode = new QRCode(document.getElementById("codigoQR"), {
-                text: infoCompraJSON,
-                width: 128,
-                height: 128
-            });
-
-            // Puedes mostrar el código de seguimiento (opcional)
-            codigoSeguimiento = generarCodigoSeguimiento();
-            console.log("Código de seguimiento: " + codigoSeguimiento);
         }
 
         function generarCodigoSeguimiento() {

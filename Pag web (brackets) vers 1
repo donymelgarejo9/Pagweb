@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Tienda de Zapatillas</title>
+    <!-- Agrega la biblioteca de generación de códigos QR -->
+    <script src="https://cdn.rawgit.com/kazuhikoarase/qrcode-generator/gh-pages/js/qrcode.js"></script>
 </head>
 <body>
     <h1>Bienvenido a la Tienda de Zapatillas</h1>
@@ -65,11 +67,22 @@
 
             const infoCompraJSON = JSON.stringify(infoCompra);
 
+            // Genera el código QR con la información de compra
             const qrcode = new QRCode(document.getElementById("codigoQR"), {
                 text: infoCompraJSON,
                 width: 128,
                 height: 128
             });
+
+            // Puedes mostrar el código de seguimiento (opcional)
+            codigoSeguimiento = generarCodigoSeguimiento();
+            console.log("Código de seguimiento: " + codigoSeguimiento);
+        }
+
+        function generarCodigoSeguimiento() {
+            // Aquí puedes generar un código de seguimiento único (por ejemplo, un UUID)
+            // Puedes utilizar bibliotecas como 'uuid' o generar tu propio esquema de códigos únicos.
+            return "CódigoÚnico123"; // Reemplaza esto con tu lógica de generación de códigos únicos.
         }
     </script>
 </body>
